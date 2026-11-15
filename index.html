@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZamBaby Rent Kuningan - Sewa Perlengkapan Bayi</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cream:'#FAF6F0',cream2:'#F5EFE6',sage:'#2D6A4F',emer:'#40916C',butter:'#FFE9A8'}}}}</script>
+<style>
+  body{font-family:system-ui,sans-serif;background:#FAF6F0;color:#3b2f24}
+  .btn{background:#2D6A4F;color:#fff;border-radius:999px;padding:.5rem 1.1rem;font-weight:600;cursor:pointer;transition:.2s}
+  .btn:hover{background:#40916C}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
+  .in{width:100%;border:1px solid #e3d9c8;border-radius:.6rem;padding:.5rem .7rem;background:#fff}
+  .card{background:#fff;border-radius:1.1rem;box-shadow:0 2px 10px #0001}
+</style>
+</head>
+<body>
+<!-- ===== KONFIGURASI PUBLIK ===== -->
+<script>
+const CONFIG = {
+  WA_ADMIN: '6281572040157',
+  SHEETS_URL: 'https://script.google.com/macros/s/AKfycbzZgwatx-2NJ281lU9XQNwFl4JvMh1E3-20V9-mUxMVZFLIMtHmcrptLYQ4N8E-SBY/exec'
+};
+</script>
+
+<header class="sticky top-0 z-20 bg-cream/95 backdrop-blur border-b border-cream2">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+    <a href="#" onclick="show('home')" class="text-xl sm:text-2xl font-extrabold text-sage">🍼 ZamBaby <span class="text-amber-500">Rent Kuningan</span></a>
+    <nav class="flex gap-4 items-center text-sm font-medium">
+      <a href="#katalog" onclick="show('home')" class="hidden sm:block">Katalog</a>
+      <a href="#cara" onclick="show('home')" class="hidden sm:block">Cara Sewa</a>
+      <button type="button" class="btn" onclick="openAdmin()">Admin</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HALAMAN PELANGGAN ===== -->
+<main id="home">
+  <section class="bg-gradient-to-br from-cream2 to-butter/40">
+    <div class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <span class="inline-block bg-butter text-xs font-bold px-3 py-1 rounded-full mb-3 text-sage">📍 Melayani Area Kuningan &amp; Sekitarnya</span>
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-sage">Sewa Perlengkapan Bayi Terbaik &amp; Praktis</h1>
+        <p class="mt-4 text-lg">Hemat, bersih, dan langsung konfirmasi via WhatsApp bersama <b>ZamBaby Rent Kuningan</b>! Steril, higienis, tanpa deposit ribet.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#katalog" class="btn">Lihat Katalog</a>
+          <a id="heroWa" target="_blank" class="btn" style="background:#25D366">Chat WhatsApp</a>
+        </div>
+      </div>
+      <div class="text-center text-9xl select-none">👶🛒</div>
+    </div>
+  </section>
+
+  <section id="katalog" class="max-w-6xl mx-auto px-4 py-12">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+      <h2 class="text-2xl font-bold">Katalog Produk</h2>
+      <span id="syncStatus" class="text-xs text-stone-500">Memuat katalog terbaru...</span>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-3 mb-6 max-w-xl">
+      <div>
+        <label class="text-sm font-medium">Cari perlengkapan bayi</label>
+        <input id="cariProd" type="text" placeholder="Ketik nama barang..." class="in mt-1" oninput="renderCatalog()">
+      </div>
+      <div>
+        <label class="text-sm font-medium">Tanggal mulai sewa (untuk pesan WA)</label>
+        <input id="tglSewa" type="date" class="in mt-1" onchange="renderCatalog()">
+      </div>
+    </div>
+
+    <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+  </section>
+
+  <section id="cara" class="bg-cream2 py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-6 text-center">Cara Sewa — 3 Langkah Mudah</h2>
+      <div class="grid sm:grid-cols-3 gap-5 text-center">
+        <div class="card p-6"><div class="text-5xl">🧸</div><b class="block mt-2">1. Pilih Alat &amp; Paket</b><p class="text-sm mt-1">Pilih alat serta durasi harian, mingguan, atau bulanan.</p></div>
+        <div class="card p-6"><div class="text-5xl">💬</div><b class="block mt-2">2. Chat &amp; Konfirmasi WA</b><p class="text-sm mt-1">Cek ketersediaan stok, transfer, dan kirim bukti.</p></div>
+        <div class="card p-6"><div class="text-5xl">🚚</div><b class="block mt-2">3. Barang Dikirim</b><p class="text-sm mt-1">Barang steril dan bersih diantar ke rumah Anda.</p></div>
+      </div>
+    </div>
+  </section>
+  <footer class="text-center text-sm py-6">Sewa Amanah, Ibu Tenang, Bayi Nyaman · © ZamBaby Rent Kuningan</footer>
+</main>
+
+<!-- ===== MODAL LOGIN ADMIN ===== -->
+<div id="login" class="hidden fixed inset-0 z-30 bg-black/40 flex items-center justify-center p-4">
+  <div class="card p-6 w-full max-w-xs">
+    <h3 class="font-bold text-lg mb-1">Login Admin</h3>
+    <p class="text-xs text-stone-500 mb-3">PIN diverifikasi langsung ke server Google Sheets.</p>
+    <input id="pin" type="password" placeholder="Masukkan PIN Admin" class="in" onkeydown="if(event.key==='Enter')doLogin()">
+    <p id="pinErr" class="text-red-600 text-xs hidden mt-1.5"></p>
+    <div class="flex gap-2 mt-4">
+      <button type="button" id="btnLogin" class="btn flex-1" onclick="doLogin()">Masuk</button>
+      <button type="button" class="flex-1 border rounded-full" onclick="$('login').classList.add('hidden')">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DASBOR ADMIN ===== -->
+<main id="admin" class="hidden max-w-6xl mx-auto px-4 py-8">
+  <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+    <div>
+      <h2 class="text-2xl font-bold text-sage">Dasbor Admin — ZamBaby Rent Kuningan</h2>
+      <p class="text-xs text-stone-500">Terhubung langsung dengan Google Sheets &amp; Google Drive</p>
+    </div>
+    <div class="flex gap-2">
+      <button type="button" class="btn" onclick="show('home')">Lihat Website</button>
+      <button type="button" class="border rounded-full px-4 py-1.5 text-sm font-medium" onclick="logout()">Keluar</button>
+    </div>
+  </div>
+
+  <div class="flex gap-2 mb-5">
+    <button type="button" id="t1" class="btn" onclick="tab(1)">Manajemen Produk</button>
+    <button type="button" id="t2" class="btn" style="background:#8a7f70" onclick="tab(2)">Data Booking</button>
+  </div>
+
+  <div id="toast" class="hidden fixed bottom-4 right-4 bg-sage text-white px-4 py-2.5 rounded-xl shadow-lg z-40 text-sm font-medium"></div>
+
+  <!-- Tab 1: Produk (Tanpa Kolom Kategori) -->
+  <div id="p1">
+    <form id="fProd" class="card p-5 grid md:grid-cols-2 gap-3" onsubmit="saveProd(event)">
+      <h3 class="md:col-span-2 font-bold text-lg" id="fProdTitle">Tambah Produk Baru</h3>
+      <input type="hidden" id="pId">
+      <div class="md:col-span-2"><label class="text-sm font-medium">Nama Produk</label><input id="pNama" class="in mt-1" placeholder="Contoh: Stroller Babyzen Yoyo" required></div>
+      
+      <!-- 3 Kolom Harga Sekaligus -->
+      <div class="md:col-span-2 grid sm:grid-cols-3 gap-3 bg-cream p-3 rounded-xl border border-cream2">
+        <div>
+          <label class="text-sm font-medium">Harga / Hari (Rp)</label>
+          <input id="pHargaHari" type="number" min="0" class="in mt-1" placeholder="Contoh: 25000">
+        </div>
+        <div>
+          <label class="text-sm font-medium">Harga / Minggu (Rp)</label>
+          <input id="pHargaMinggu" type="number" min="0" class="in mt-1" placeholder="Contoh: 80000">
+        </div>
+        <div>
+          <label class="text-sm font-medium">Harga / Bulan (Rp)</label>
+          <input id="pHargaBulan" type="number" min="0" class="in mt-1" placeholder="Contoh: 150000">
+        </div>
+        <p class="sm:col-span-3 text-xs text-stone-500">Isi minimal satu pilihan harga (atau isi ketiganya agar pelanggan bisa memilih durasi langsung di website).</p>
+      </div>
+
+      <div class="md:col-span-2"><label class="text-sm font-medium">Deskripsi Singkat</label><textarea id="pDesk" rows="2" class="in mt-1" placeholder="Keterangan kondisi, kelengkapan, usia bayi..."></textarea></div>
+      
+      <div>
+        <label class="text-sm font-medium">Pilih Foto dari Galeri / Kamera</label>
+        <input id="pFile" type="file" accept="image/*" class="in mt-1" onchange="previewFile()">
+      </div>
+      <div>
+        <label class="text-sm font-medium">Atau Tempel Link URL Foto (Opsional)</label>
+        <input id="pUrl" type="url" class="in mt-1" placeholder="https://..." oninput="previewUrl()">
+      </div>
+
+      <div id="imgPreviewBox" class="hidden md:col-span-2 mt-1 flex items-center gap-3 bg-cream p-2.5 rounded-lg border border-cream2">
+        <img id="imgPreview" class="w-16 h-16 object-cover rounded-lg border bg-white" alt="Preview">
+        <div class="text-xs text-stone-600">
+          <b class="block text-sage">Pratinjau Foto Siap Upload</b>
+          Foto akan otomatis dikompresi &amp; disimpan ke Google Drive Anda saat dipublikasikan.
+        </div>
+      </div>
+
+      <div class="md:col-span-2 flex gap-2 mt-2">
+        <button type="submit" id="btnSaveProd" class="btn">Upload &amp; Publikasikan</button>
+        <button type="button" class="border rounded-full px-4 py-1.5 text-sm" onclick="resetProd()">Reset Form</button>
+      </div>
+    </form>
+    <div id="prodList" class="mt-5 grid gap-3"></div>
+  </div>
+
+  <!-- Tab 2: Booking -->
+  <div id="p2" class="hidden">
+    <form class="card p-5 grid md:grid-cols-2 gap-3" onsubmit="saveBook(event)">
+      <h3 class="md:col-span-2 font-bold text-lg">Input Booking Manual (Deal WA)</h3>
+      <div><label class="text-sm font-medium">Nama Pelanggan</label><input id="bNama" class="in mt-1" required></div>
+      <div><label class="text-sm font-medium">Nomor WhatsApp</label><input id="bWa" class="in mt-1" placeholder="0812..." required></div>
+      <div><label class="text-sm font-medium">Barang Disewa</label><select id="bBarang" class="in mt-1"></select></div>
+      <div><label class="text-sm font-medium">Total Biaya (Rp)</label><input id="bTotal" type="number" class="in mt-1" required></div>
+      <div><label class="text-sm font-medium">Tanggal Mulai</label><input id="bMulai" type="date" class="in mt-1" required></div>
+      <div><label class="text-sm font-medium">Tanggal Selesai</label><input id="bSelesai" type="date" class="in mt-1" required></div>
+      <div><label class="text-sm font-medium">Status</label><select id="bStatus" class="in mt-1"><option>Dipesan</option><option>Sedang Disewa</option><option>Selesai</option></select></div>
+      <div><label class="text-sm font-medium">Catatan</label><input id="bCat" class="in mt-1" placeholder="Alamat antar di Kuningan / paket sewa..."></div>
+      <div class="md:col-span-2 mt-2"><button type="submit" id="btnSaveBook" class="btn">Simpan &amp; Kirim ke Spreadsheet</button></div>
+    </form>
+
+    <div class="card p-4 mt-5">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <input id="q" placeholder="Cari nama / barang..." class="in sm:w-60" oninput="renderBook()">
+        <select id="fs" class="in sm:w-44" onchange="renderBook()"><option value="">Semua status</option><option>Dipesan</option><option>Sedang Disewa</option><option>Selesai</option></select>
+        <button type="button" class="btn" onclick="exportCSV()">Export CSV</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead><tr class="text-left border-b"><th class="p-2">Nama</th><th>WA</th><th>Barang</th><th>Periode</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody id="bookBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const rp = n => 'Rp ' + Number(n || 0).toLocaleString('id-ID');
+const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const save = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+
+const SEED = [
+  { id: 1, nama: 'Stroller Bayi Premium', hargaHari: 25000, hargaMinggu: 80000, hargaBulan: 150000, deskripsi: 'Ringan, lipat praktis, cocok untuk bepergian.', gambar: '' },
+  { id: 2, nama: 'Baby Crib Kayu', hargaHari: 25000, hargaMinggu: 85000, hargaBulan: 160000, deskripsi: 'Tempat tidur bayi kokoh, kasur bersih.', gambar: '' },
+  { id: 3, nama: 'Car Seat Aman', hargaHari: 25000, hargaMinggu: 80000, hargaBulan: 150000, deskripsi: 'Kursi mobil bersertifikat keamanan.', gambar: '' },
+  { id: 4, nama: 'Bouncer Bayi', hargaHari: 15000, hargaMinggu: 50000, hargaBulan: 90000, deskripsi: 'Kursi goyang dengan getaran lembut.', gambar: '' }
+];
+
+let produk = load('zbr_produk_v3', SEED);
+let booking = load('zbr_booking', []);
+let selectedDurasi = {};
+
+function toast(m) {
+  const t = $('toast');
+  t.textContent = m;
+  t.classList.remove('hidden');
+  setTimeout(() => t.classList.add('hidden'), 3500);
+}
+
+/* --- Helper Pilihan Durasi & Harga Produk --- */
+function getOpsiHarga(p) {
+  const opsi = [];
+  if (Number(p.hargaHari) > 0) opsi.push({ key: 'hari', label: 'Harian', satuan: 'hari', harga: Number(p.hargaHari) });
+  if (Number(p.hargaMinggu) > 0) opsi.push({ key: 'minggu', label: 'Mingguan', satuan: 'minggu', harga: Number(p.hargaMinggu) });
+  if (Number(p.hargaBulan) > 0) opsi.push({ key: 'bulan', label: 'Bulanan', satuan: 'bulan', harga: Number(p.hargaBulan) });
+  if (opsi.length === 0 && Number(p.harga) > 0) {
+    opsi.push({ key: 'bulan', label: 'Bulanan', satuan: p.satuan || 'bulan', harga: Number(p.harga) });
+  }
+  return opsi;
+}
+
+function getActiveOpsi(p) {
+  const opsi = getOpsiHarga(p);
+  if (opsi.length === 0) return { key: 'bulan', label: 'Bulanan', satuan: 'bulan', harga: 0 };
+  const chosenKey = selectedDurasi[p.id];
+  return opsi.find(o => o.key === chosenKey) || opsi[opsi.length - 1];
+}
+
+function pilihDurasi(prodId, key) {
+  selectedDurasi[prodId] = key;
+  renderCatalog();
+}
+
+/* --- Tarik Katalog Produk dari Google Sheets (Publik) --- */
+async function syncCatalogFromSheets() {
+  if (!CONFIG.SHEETS_URL) return;
+  try {
+    const res = await fetch(CONFIG.SHEETS_URL);
+    const json = await res.json();
+    if (json.ok && Array.isArray(json.produk)) {
+      if (json.produk.length > 0) {
+        produk = json.produk;
+        save('zbr_produk_v3', produk);
+        renderCatalog();
+      }
+      $('syncStatus').textContent = 'Katalog tersinkronisasi';
+    }
+  } catch (e) {
+    $('syncStatus').textContent = '';
+  }
+}
+
+/* --- Kirim Perintah ke Google Sheets --- */
+async function sheets(action, sheet, data) {
+  const pin = sessionStorage.getItem('zbr_pin');
+  if (!CONFIG.SHEETS_URL || !pin) return { ok: false, error: 'Sesi habis' };
+  try {
+    const res = await fetch(CONFIG.SHEETS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ pin, action, sheet, data })
+    });
+    return await res.json();
+  } catch (e) {
+    console.error(e);
+    return { ok: false, error: 'Gagal terhubung ke server' };
+  }
+}
+
+/* --- Navigasi & Login Admin --- */
+function show(p) {
+  $('home').classList.toggle('hidden', p !== 'home');
+  $('admin').classList.toggle('hidden', p !== 'admin');
+  window.scrollTo(0, 0);
+}
+
+function openAdmin() {
+  if (sessionStorage.getItem('zbr_pin')) {
+    renderAdmin();
+    show('admin');
+  } else {
+    $('pinErr').classList.add('hidden');
+    $('login').classList.remove('hidden');
+    $('pin').focus();
+  }
+}
+
+async function doLogin() {
+  const pinVal = $('pin').value.trim();
+  if (!pinVal) return;
+  const btn = $('btnLogin');
+  btn.disabled = true;
+  btn.textContent = 'Memeriksa...';
+  $('pinErr').classList.add('hidden');
+
+  try {
+    const res = await fetch(CONFIG.SHEETS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ pin: pinVal, action: 'verify_login' })
+    });
+    const json = await res.json();
+
+    if (json.ok) {
+      sessionStorage.setItem('zbr_pin', pinVal);
+      if (Array.isArray(json.produk) && json.produk.length > 0) {
+        produk = json.produk;
+        save('zbr_produk_v3', produk);
+      }
+      if (Array.isArray(json.booking)) {
+        booking = json.booking;
+        save('zbr_booking', booking);
+      }
+      $('login').classList.add('hidden');
+      $('pin').value = '';
+      renderAll();
+      show('admin');
+      toast('Login berhasil! Data tersinkronisasi.');
+    } else {
+      $('pinErr').textContent = json.error || 'PIN salah';
+      $('pinErr').classList.remove('hidden');
+    }
+  } catch (e) {
+    $('pinErr').textContent = 'Gagal terhubung ke Google Sheets';
+    $('pinErr').classList.remove('hidden');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Masuk';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('zbr_pin');
+  show('home');
+}
+
+function tab(n) {
+  $('p1').classList.toggle('hidden', n !== 1);
+  $('p2').classList.toggle('hidden', n !== 2);
+  $('t1').style.background = n === 1 ? '' : '#8a7f70';
+  $('t2').style.background = n === 2 ? '' : '#8a7f70';
+}
+
+/* --- Katalog Pelanggan (Tanpa Kategori, Dengan Pencarian & Pilihan Durasi) --- */
+function waLink(p, aktif) {
+  const tgl = $('tglSewa').value || 'yang saya inginkan';
+  const msg = `Halo Admin ZamBaby Rent Kuningan, saya ingin menyewa ${p.nama} paket ${aktif.label} (${rp(aktif.harga)}/${aktif.satuan}). Apakah stoknya tersedia untuk tanggal ${tgl}?`;
+  return `https://wa.me/${CONFIG.WA_ADMIN}?text=${encodeURIComponent(msg)}`;
+}
+
+function renderCatalog() {
+  const keyword = ($('cariProd').value || '').toLowerCase().trim();
+  const list = produk.filter(p =>
+    (String(p.nama) + ' ' + String(p.deskripsi || '')).toLowerCase().includes(keyword)
+  );
+
+  $('grid').innerHTML = list.map(p => {
+    const opsi = getOpsiHarga(p);
+    const aktif = getActiveOpsi(p);
+    const tombolDurasi = opsi.length > 1
+      ? `<div class="flex gap-1.5 mt-3">${opsi.map(o => `<button type="button" onclick="pilihDurasi('${p.id}','${o.key}')" class="flex-1 py-1 px-2 rounded-lg text-xs font-semibold border transition ${o.key === aktif.key ? 'bg-sage text-white border-sage' : 'bg-cream text-stone-700 border-cream2 hover:bg-butter/50'}">${o.label}</button>`).join('')}</div>`
+      : '';
+
+    return `<div class="card overflow-hidden flex flex-col">
+      <div class="h-44 bg-butter/40 flex items-center justify-center text-6xl overflow-hidden">${p.gambar ? `<img src="${p.gambar}" class="h-full w-full object-cover" alt="${p.nama}" onerror="this.style.display='none'">` : '🍼'}</div>
+      <div class="p-4 flex flex-col flex-1">
+        <b class="text-base">${p.nama}</b>
+        <p class="text-sm text-stone-600 flex-1 mt-1">${p.deskripsi || ''}</p>
+        ${tombolDurasi}
+        <div class="text-sage font-bold text-lg mt-2.5">${rp(aktif.harga)} <span class="text-xs font-normal text-stone-600">/ ${aktif.satuan}</span></div>
+        <a href="${waLink(p, aktif)}" target="_blank" class="btn text-center mt-3">Sewa via WhatsApp</a>
+      </div>
+    </div>`;
+  }).join('') || '<p class="col-span-full text-stone-500">Produk tidak ditemukan.</p>';
+
+  $('heroWa').href = `https://wa.me/${CONFIG.WA_ADMIN}?text=${encodeURIComponent('Halo Admin ZamBaby Rent Kuningan, saya ingin bertanya tentang penyewaan alat bayi.')}`;
+}
+
+/* --- Kompresi & Pratinjau Foto Galeri --- */
+const compressImage = file => new Promise(resolve => {
+  const reader = new FileReader();
+  reader.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      const maxW = 700;
+      const scale = Math.min(1, maxW / img.width);
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL('image/jpeg', 0.8));
+    };
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+async function previewFile() {
+  const file = $('pFile').files[0];
+  if (!file) return;
+  $('pUrl').value = '';
+  const b64 = await compressImage(file);
+  $('imgPreview').src = b64;
+  $('imgPreviewBox').classList.remove('hidden');
+}
+
+function previewUrl() {
+  const url = $('pUrl').value.trim();
+  if (url) {
+    $('pFile').value = '';
+    $('imgPreview').src = url;
+    $('imgPreviewBox').classList.remove('hidden');
+  } else if (!$('pFile').files[0]) {
+    $('imgPreviewBox').classList.add('hidden');
+  }
+}
+
+/* --- Admin: Manajemen Produk --- */
+async function saveProd(e) {
+  e.preventDefault();
+  const hHari = Number($('pHargaHari').value || 0);
+  const hMinggu = Number($('pHargaMinggu').value || 0);
+  const hBulan = Number($('pHargaBulan').value || 0);
+
+  if (hHari <= 0 && hMinggu <= 0 && hBulan <= 0) {
+    toast('Harap isi minimal salah satu harga (Hari / Minggu / Bulan)!');
+    return;
+  }
+
+  const btn = $('btnSaveProd');
+  btn.disabled = true;
+  btn.textContent = 'Mengunggah & Menyimpan...';
+
+  const id = $('pId').value ? +$('pId').value : Date.now();
+  const old = produk.find(p => String(p.id) === String(id));
+  const file = $('pFile').files[0];
+  let gambarBase64 = '';
+  let gambarUrl = $('pUrl').value.trim() || (old && !file ? old.gambar : '');
+
+  if (file) {
+    gambarBase64 = await compressImage(file);
+  }
+
+  const p = {
+    id,
+    nama: $('pNama').value.trim(),
+    hargaHari: hHari,
+    hargaMinggu: hMinggu,
+    hargaBulan: hBulan,
+    deskripsi: $('pDesk').value.trim(),
+    gambar: gambarUrl,
+    gambarBase64: gambarBase64
+  };
+
+  const res = await sheets(old ? 'update' : 'add', 'Daftar_Produk', p);
+  if (res.ok) {
+    if (res.imageUrl) p.gambar = res.imageUrl;
+    delete p.gambarBase64;
+
+    produk = old ? produk.map(x => String(x.id) === String(id) ? p : x) : [...produk, p];
+    save('zbr_produk_v3', produk);
+    toast('Produk berhasil dipublikasikan!');
+    resetProd();
+    renderAll();
+  } else {
+    toast('Gagal: ' + (res.error || 'Terjadi kesalahan'));
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Upload & Publikasikan';
+}
+
+function resetProd() {
+  $('fProd').reset();
+  $('pId').value = '';
+  $('imgPreviewBox').classList.add('hidden');
+  $('fProdTitle').textContent = 'Tambah Produk Baru';
+}
+
+function editProd(id) {
+  const p = produk.find(x => String(x.id) === String(id));
+  if (!p) return;
+  $('pId').value = p.id;
+  $('pNama').value = p.nama;
+  $('pHargaHari').value = p.hargaHari || '';
+  $('pHargaMinggu').value = p.hargaMinggu || '';
+  $('pHargaBulan').value = p.hargaBulan || '';
+  $('pDesk').value = p.deskripsi || '';
+  $('pUrl').value = p.gambar || '';
+  $('pFile').value = '';
+  previewUrl();
+  $('fProdTitle').textContent = 'Edit Produk';
+  window.scrollTo(0, 0);
+}
+
+async function delProd(id) {
+  if (!confirm('Hapus produk ini dari website dan Google Sheets?')) return;
+  const res = await sheets('delete', 'Daftar_Produk', { id });
+  if (res.ok) {
+    produk = produk.filter(p => String(p.id) !== String(id));
+    save('zbr_produk_v3', produk);
+    renderAll();
+    toast('Produk dihapus');
+  } else {
+    toast('Gagal menghapus: ' + res.error);
+  }
+}
+
+function renderProdList() {
+  $('prodList').innerHTML = produk.map(p => {
+    const infoHarga = [
+      p.hargaHari > 0 ? `${rp(p.hargaHari)}/hari` : '',
+      p.hargaMinggu > 0 ? `${rp(p.hargaMinggu)}/minggu` : '',
+      p.hargaBulan > 0 ? `${rp(p.hargaBulan)}/bulan` : ''
+    ].filter(Boolean).join(' · ');
+
+    return `<div class="card p-3 flex items-center gap-3">
+      <div class="w-14 h-14 rounded-lg bg-butter/40 flex items-center justify-center text-2xl overflow-hidden">${p.gambar ? `<img src="${p.gambar}" class="w-full h-full object-cover">` : '🍼'}</div>
+      <div class="flex-1"><b>${p.nama}</b><div class="text-xs text-stone-600">${infoHarga}</div></div>
+      <button type="button" class="text-sage font-semibold text-sm px-2" onclick="editProd('${p.id}')">Edit</button>
+      <button type="button" class="text-red-600 font-semibold text-sm px-2" onclick="delProd('${p.id}')">Hapus</button>
+    </div>`;
+  }).join('');
+}
+
+/* --- Admin: Data Booking --- */
+async function saveBook(e) {
+  e.preventDefault();
+  const btn = $('btnSaveBook');
+  btn.disabled = true;
+  btn.textContent = 'Mengirim...';
+
+  const b = {
+    id: Date.now(),
+    nama: $('bNama').value.trim(),
+    wa: $('bWa').value.trim(),
+    barang: $('bBarang').value,
+    mulai: $('bMulai').value,
+    selesai: $('bSelesai').value,
+    total: +$('bTotal').value,
+    status: $('bStatus').value,
+    catatan: $('bCat').value.trim(),
+    dibuat: new Date().toLocaleString('id-ID')
+  };
+
+  const res = await sheets('add', 'Data_Booking', { ...b });
+  if (res.ok) {
+    booking.unshift(b);
+    save('zbr_booking', booking);
+    toast('Booking tersimpan di Google Sheets!');
+    e.target.reset();
+    renderBook();
+  } else {
+    toast('Gagal menyimpan: ' + (res.error || 'Cek koneksi'));
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Simpan & Kirim ke Spreadsheet';
+}
+
+function renderBook() {
+  const q = $('q').value.toLowerCase(), fs = $('fs').value;
+  $('bookBody').innerHTML = booking.filter(b => (!fs || b.status === fs) && (String(b.nama) + String(b.barang)).toLowerCase().includes(q)).map(b => {
+    const cleanWa = String(b.wa || '').replace(/^'/, '');
+    return `<tr class="border-b">
+      <td class="p-2 font-medium">${b.nama}</td>
+      <td>${cleanWa}</td>
+      <td>${b.barang}</td>
+      <td class="text-xs">${b.mulai} s/d ${b.selesai}</td>
+      <td>${rp(b.total)}</td>
+      <td><select class="border rounded p-1 text-xs" onchange="setStatus('${b.id}',this.value)">${['Dipesan', 'Sedang Disewa', 'Selesai'].map(s => `<option ${s === b.status ? 'selected' : ''}>${s}</option>`).join('')}</select></td>
+      <td><button type="button" class="text-red-600 text-xs font-semibold" onclick="delBook('${b.id}')">Hapus</button></td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="7" class="p-4 text-center text-stone-500">Belum ada data booking.</td></tr>';
+}
+
+async function setStatus(id, s) {
+  const b = booking.find(x => String(x.id) === String(id));
+  if (!b) return;
+  b.status = s;
+  const res = await sheets('update', 'Data_Booking', { ...b });
+  if (res.ok) {
+    save('zbr_booking', booking);
+    toast('Status diperbarui di Spreadsheet');
+  } else {
+    toast('Gagal memperbarui status');
+  }
+}
+
+async function delBook(id) {
+  if (!confirm('Hapus data booking ini?')) return;
+  const res = await sheets('delete', 'Data_Booking', { id });
+  if (res.ok) {
+    booking = booking.filter(b => String(b.id) !== String(id));
+    save('zbr_booking', booking);
+    renderBook();
+    toast('Data booking dihapus');
+  } else {
+    toast('Gagal menghapus data');
+  }
+}
+
+function exportCSV() {
+  const h = ['Nama', 'WhatsApp', 'Barang', 'Mulai', 'Selesai', 'Total', 'Status', 'Catatan'];
+  const rows = booking.map(b => [b.nama, String(b.wa || '').replace(/^'/, ''), b.barang, b.mulai, b.selesai, b.total, b.status, b.catatan].map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(','));
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\ufeff' + [h.join(','), ...rows].join('\n')], { type: 'text/csv' }));
+  a.download = 'data_booking_zambaby_rent_kuningan.csv';
+  a.click();
+}
+
+function renderAdmin() {
+  renderProdList();
+  $('bBarang').innerHTML = produk.map(p => `<option>${p.nama}</option>`).join('');
+  renderBook();
+}
+
+function renderAll() {
+  renderCatalog();
+  renderAdmin();
+}
+
+renderAll();
+syncCatalogFromSheets();
+</script>
+</body>
+</html>
