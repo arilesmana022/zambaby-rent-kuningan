@@ -3,16 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ZamBaby Rent Kuningan - Sewa Perlengkapan Bayi</title>
+<title>ZamBaby Rent Kuningan - Sewa Perlengkapan Bayi &amp; Anak</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script>tailwind.config={theme:{extend:{colors:{cream:'#FAF6F0',cream2:'#F5EFE6',sage:'#2D6A4F',emer:'#40916C',butter:'#FFE9A8'}}}}</script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        snow: '#F4FBFD',
+        aquaSoft: '#E2F5F8',
+        aquaLogo: '#9AD7E2',
+        aquaDeep: '#3A9BB0',
+        pinkLogo: '#F396A4',
+        pinkDeep: '#E27486',
+        yellowLogo: '#FFF394',
+        yellowSoft: '#FFF9C9',
+        ink: '#374151'
+      }
+    }
+  }
+}
+</script>
 <style>
-  body{font-family:system-ui,sans-serif;background:#FAF6F0;color:#3b2f24}
-  .btn{background:#2D6A4F;color:#fff;border-radius:999px;padding:.5rem 1.1rem;font-weight:600;cursor:pointer;transition:.2s}
-  .btn:hover{background:#40916C}
-  .btn:disabled{opacity:.6;cursor:not-allowed}
-  .in{width:100%;border:1px solid #e3d9c8;border-radius:.6rem;padding:.5rem .7rem;background:#fff}
-  .card{background:#fff;border-radius:1.1rem;box-shadow:0 2px 10px #0001}
+  body { font-family: system-ui, sans-serif; background: #F4FBFD; color: #374151; }
+  .btn { background: #E27486; color: #fff; border-radius: 999px; padding: .5rem 1.2rem; font-weight: 600; cursor: pointer; transition: .2s; box-shadow: 0 2px 6px rgba(226, 116, 134, 0.25); }
+  .btn:hover { background: #d46073; }
+  .btn:disabled { opacity: .6; cursor: not-allowed; }
+  .btn-aqua { background: #3A9BB0; color: #fff; border-radius: 999px; padding: .5rem 1.2rem; font-weight: 600; cursor: pointer; transition: .2s; }
+  .btn-aqua:hover { background: #2e8396; }
+  .in { width: 100%; border: 1.5px solid #CBEAF0; border-radius: .7rem; padding: .5rem .75rem; background: #fff; }
+  .in:focus { outline: none; border-color: #F396A4; }
+  .card { background: #fff; border-radius: 1.2rem; border: 1.5px solid #E2F5F8; box-shadow: 0 4px 14px rgba(58, 155, 176, 0.08); }
 </style>
 </head>
 <body>
@@ -20,51 +41,60 @@
 <script>
 const CONFIG = {
   WA_ADMIN: '6281572040157',
-  SHEETS_URL: 'https://script.google.com/macros/s/AKfycbzZgwatx-2NJ281lU9XQNwFl4JvMh1E3-20V9-mUxMVZFLIMtHmcrptLYQ4N8E-SBY/exec'
+  SHEETS_URL: 'https://script.google.com/macros/s/AKfycby1TOCkTmMJFiHqYaFXN4LWFizx3CkQxsBmoP-I7ZQ_phnJOZ7HJChQwz_gW0La3Ize/exec'
 };
 </script>
 
-<header class="sticky top-0 z-20 bg-cream/95 backdrop-blur border-b border-cream2">
+<header class="sticky top-0 z-20 bg-white/95 backdrop-blur border-b-2 border-pinkLogo/40">
   <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
-    <a href="#" onclick="show('home')" class="text-xl sm:text-2xl font-extrabold text-sage">🍼 ZamBaby <span class="text-amber-500">Rent Kuningan</span></a>
-    <nav class="flex gap-4 items-center text-sm font-medium">
-      <a href="#katalog" onclick="show('home')" class="hidden sm:block">Katalog</a>
-      <a href="#cara" onclick="show('home')" class="hidden sm:block">Cara Sewa</a>
-      <button type="button" class="btn" onclick="openAdmin()">Admin</button>
+    <a href="#" onclick="show('home')" class="flex items-center gap-2 text-xl sm:text-2xl font-extrabold text-aquaDeep">
+      <span class="w-9 h-9 rounded-full bg-aquaLogo border-2 border-pinkLogo flex items-center justify-center text-lg shadow-sm">🍼</span>
+      <span>ZamBaby <span class="text-pinkDeep">Rent</span> <span class="text-xs sm:text-sm font-bold bg-yellowLogo text-ink px-2 py-0.5 rounded-full">Kuningan</span></span>
+    </a>
+    <nav class="flex gap-4 items-center text-sm font-semibold">
+      <a href="#katalog" onclick="show('home')" class="hidden sm:block hover:text-pinkDeep">Katalog</a>
+      <a href="#cara" onclick="show('home')" class="hidden sm:block hover:text-pinkDeep">Cara Sewa</a>
+      <button type="button" class="btn-aqua text-xs sm:text-sm" onclick="openAdmin()">Admin</button>
     </nav>
   </div>
 </header>
 
 <!-- ===== HALAMAN PELANGGAN ===== -->
 <main id="home">
-  <section class="bg-gradient-to-br from-cream2 to-butter/40">
+  <section class="bg-gradient-to-br from-aquaLogo/45 via-aquaSoft to-yellowSoft/70 border-b border-aquaLogo/40">
     <div class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-8 items-center">
       <div>
-        <span class="inline-block bg-butter text-xs font-bold px-3 py-1 rounded-full mb-3 text-sage">📍 Melayani Area Kuningan &amp; Sekitarnya</span>
-        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-sage">Sewa Perlengkapan Bayi Terbaik &amp; Praktis</h1>
-        <p class="mt-4 text-lg">Hemat, bersih, dan langsung konfirmasi via WhatsApp bersama <b>ZamBaby Rent Kuningan</b>! Steril, higienis, tanpa deposit ribet.</p>
+        <span class="inline-block bg-yellowLogo border border-pinkLogo/50 text-xs font-bold px-3.5 py-1 rounded-full mb-3 text-ink">📍 Melayani Area Kuningan &amp; Sekitarnya</span>
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-aquaDeep">Sewa Perlengkapan Bayi &amp; Anak Terbaik</h1>
+        <p class="mt-4 text-base sm:text-lg text-slate-600">Hemat, bersih, dan langsung konfirmasi via WhatsApp bersama <b class="text-pinkDeep">ZamBaby Rent Kuningan</b>! Steril, higienis, tanpa deposit ribet.</p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href="#katalog" class="btn">Lihat Katalog</a>
           <a id="heroWa" target="_blank" class="btn" style="background:#25D366">Chat WhatsApp</a>
         </div>
       </div>
-      <div class="text-center text-9xl select-none">👶🛒</div>
+      <div class="flex justify-center">
+        <div class="w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-aquaLogo border-4 border-pinkLogo shadow-lg flex flex-col items-center justify-center text-center p-4 select-none">
+          <div class="text-7xl mb-2">👶🧸</div>
+          <span class="font-extrabold text-xl text-yellowLogo drop-shadow">ZamBaby Rent</span>
+          <span class="text-xs font-semibold text-white mt-0.5">Sewa Perlengkapan Bayi &amp; Anak</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="katalog" class="max-w-6xl mx-auto px-4 py-12">
     <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-      <h2 class="text-2xl font-bold">Katalog Produk</h2>
-      <span id="syncStatus" class="text-xs text-stone-500">Memuat katalog terbaru...</span>
+      <h2 class="text-2xl font-extrabold text-aquaDeep">Katalog Perlengkapan</h2>
+      <span id="syncStatus" class="text-xs bg-aquaSoft text-aquaDeep font-medium px-3 py-1 rounded-full">Memuat katalog terbaru...</span>
     </div>
 
     <div class="grid sm:grid-cols-2 gap-3 mb-6 max-w-xl">
       <div>
-        <label class="text-sm font-medium">Cari perlengkapan bayi</label>
+        <label class="text-sm font-semibold text-slate-700">Cari perlengkapan bayi &amp; anak</label>
         <input id="cariProd" type="text" placeholder="Ketik nama barang..." class="in mt-1" oninput="renderCatalog()">
       </div>
       <div>
-        <label class="text-sm font-medium">Tanggal mulai sewa (untuk pesan WA)</label>
+        <label class="text-sm font-semibold text-slate-700">Tanggal mulai sewa (untuk pesan WA)</label>
         <input id="tglSewa" type="date" class="in mt-1" onchange="renderCatalog()">
       </div>
     </div>
@@ -72,29 +102,31 @@ const CONFIG = {
     <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
   </section>
 
-  <section id="cara" class="bg-cream2 py-12">
+  <section id="cara" class="bg-aquaSoft/80 border-t border-aquaLogo/40 py-12">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl font-bold mb-6 text-center">Cara Sewa — 3 Langkah Mudah</h2>
+      <h2 class="text-2xl font-extrabold mb-6 text-center text-aquaDeep">Cara Sewa — 3 Langkah Mudah</h2>
       <div class="grid sm:grid-cols-3 gap-5 text-center">
-        <div class="card p-6"><div class="text-5xl">🧸</div><b class="block mt-2">1. Pilih Alat &amp; Paket</b><p class="text-sm mt-1">Pilih alat serta durasi harian, mingguan, atau bulanan.</p></div>
-        <div class="card p-6"><div class="text-5xl">💬</div><b class="block mt-2">2. Chat &amp; Konfirmasi WA</b><p class="text-sm mt-1">Cek ketersediaan stok, transfer, dan kirim bukti.</p></div>
-        <div class="card p-6"><div class="text-5xl">🚚</div><b class="block mt-2">3. Barang Dikirim</b><p class="text-sm mt-1">Barang steril dan bersih diantar ke rumah Anda.</p></div>
+        <div class="card p-6"><div class="text-5xl">🧸</div><b class="block mt-2 text-pinkDeep">1. Pilih Alat &amp; Paket</b><p class="text-sm mt-1 text-slate-600">Pilih alat serta durasi harian, mingguan, atau bulanan.</p></div>
+        <div class="card p-6"><div class="text-5xl">💬</div><b class="block mt-2 text-pinkDeep">2. Chat &amp; Konfirmasi WA</b><p class="text-sm mt-1 text-slate-600">Cek ketersediaan stok, transfer, dan kirim bukti.</p></div>
+        <div class="card p-6"><div class="text-5xl">🚚</div><b class="block mt-2 text-pinkDeep">3. Barang Dikirim</b><p class="text-sm mt-1 text-slate-600">Barang steril dan bersih diantar ke rumah Anda.</p></div>
       </div>
     </div>
   </section>
-  <footer class="text-center text-sm py-6">Sewa Amanah, Ibu Tenang, Bayi Nyaman · © ZamBaby Rent Kuningan</footer>
+  <footer class="bg-white border-t border-pinkLogo/30 text-center text-sm py-6 text-slate-600">
+    Sewa Amanah, Ibu Tenang, Bayi Nyaman · <b class="text-aquaDeep">© ZamBaby Rent Kuningan</b>
+  </footer>
 </main>
 
 <!-- ===== MODAL LOGIN ADMIN ===== -->
-<div id="login" class="hidden fixed inset-0 z-30 bg-black/40 flex items-center justify-center p-4">
-  <div class="card p-6 w-full max-w-xs">
-    <h3 class="font-bold text-lg mb-1">Login Admin</h3>
-    <p class="text-xs text-stone-500 mb-3">PIN diverifikasi langsung ke server Google Sheets.</p>
+<div id="login" class="hidden fixed inset-0 z-30 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+  <div class="card p-6 w-full max-w-xs border-2 border-pinkLogo">
+    <h3 class="font-bold text-lg text-aquaDeep mb-1">Login Admin</h3>
+    <p class="text-xs text-slate-500 mb-3">PIN diverifikasi langsung ke server Google Sheets.</p>
     <input id="pin" type="password" placeholder="Masukkan PIN Admin" class="in" onkeydown="if(event.key==='Enter')doLogin()">
-    <p id="pinErr" class="text-red-600 text-xs hidden mt-1.5"></p>
+    <p id="pinErr" class="text-pinkDeep font-medium text-xs hidden mt-1.5"></p>
     <div class="flex gap-2 mt-4">
       <button type="button" id="btnLogin" class="btn flex-1" onclick="doLogin()">Masuk</button>
-      <button type="button" class="flex-1 border rounded-full" onclick="$('login').classList.add('hidden')">Batal</button>
+      <button type="button" class="flex-1 border border-slate-300 rounded-full text-sm font-medium" onclick="$('login').classList.add('hidden')">Batal</button>
     </div>
   </div>
 </div>
@@ -103,68 +135,67 @@ const CONFIG = {
 <main id="admin" class="hidden max-w-6xl mx-auto px-4 py-8">
   <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
     <div>
-      <h2 class="text-2xl font-bold text-sage">Dasbor Admin — ZamBaby Rent Kuningan</h2>
-      <p class="text-xs text-stone-500">Terhubung langsung dengan Google Sheets &amp; Google Drive</p>
+      <h2 class="text-2xl font-extrabold text-aquaDeep">Dasbor Admin — ZamBaby Rent Kuningan</h2>
+      <p class="text-xs text-slate-500">Terhubung langsung dengan Google Sheets &amp; Google Drive</p>
     </div>
     <div class="flex gap-2">
-      <button type="button" class="btn" onclick="show('home')">Lihat Website</button>
-      <button type="button" class="border rounded-full px-4 py-1.5 text-sm font-medium" onclick="logout()">Keluar</button>
+      <button type="button" class="btn-aqua text-sm" onclick="show('home')">Lihat Website</button>
+      <button type="button" class="border border-pinkLogo text-pinkDeep rounded-full px-4 py-1.5 text-sm font-semibold bg-white" onclick="logout()">Keluar</button>
     </div>
   </div>
 
   <div class="flex gap-2 mb-5">
     <button type="button" id="t1" class="btn" onclick="tab(1)">Manajemen Produk</button>
-    <button type="button" id="t2" class="btn" style="background:#8a7f70" onclick="tab(2)">Data Booking</button>
+    <button type="button" id="t2" class="btn" style="background:#94a3b8" onclick="tab(2)">Data Booking</button>
   </div>
 
-  <div id="toast" class="hidden fixed bottom-4 right-4 bg-sage text-white px-4 py-2.5 rounded-xl shadow-lg z-40 text-sm font-medium"></div>
+  <div id="toast" class="hidden fixed bottom-4 right-4 bg-aquaDeep text-white px-4 py-2.5 rounded-xl shadow-lg z-40 text-sm font-semibold border-2 border-yellowLogo"></div>
 
-  <!-- Tab 1: Produk (Tanpa Kolom Kategori) -->
+  <!-- Tab 1: Produk -->
   <div id="p1">
     <form id="fProd" class="card p-5 grid md:grid-cols-2 gap-3" onsubmit="saveProd(event)">
-      <h3 class="md:col-span-2 font-bold text-lg" id="fProdTitle">Tambah Produk Baru</h3>
+      <h3 class="md:col-span-2 font-bold text-lg text-aquaDeep" id="fProdTitle">Tambah Produk Baru</h3>
       <input type="hidden" id="pId">
-      <div class="md:col-span-2"><label class="text-sm font-medium">Nama Produk</label><input id="pNama" class="in mt-1" placeholder="Contoh: Stroller Babyzen Yoyo" required></div>
+      <div class="md:col-span-2"><label class="text-sm font-semibold">Nama Produk</label><input id="pNama" class="in mt-1" placeholder="Contoh: Stroller Babyzen Yoyo" required></div>
       
-      <!-- 3 Kolom Harga Sekaligus -->
-      <div class="md:col-span-2 grid sm:grid-cols-3 gap-3 bg-cream p-3 rounded-xl border border-cream2">
+      <div class="md:col-span-2 grid sm:grid-cols-3 gap-3 bg-aquaSoft/60 p-3.5 rounded-xl border border-aquaLogo">
         <div>
-          <label class="text-sm font-medium">Harga / Hari (Rp)</label>
+          <label class="text-sm font-semibold text-aquaDeep">Harga / Hari (Rp)</label>
           <input id="pHargaHari" type="number" min="0" class="in mt-1" placeholder="Contoh: 25000">
         </div>
         <div>
-          <label class="text-sm font-medium">Harga / Minggu (Rp)</label>
+          <label class="text-sm font-semibold text-aquaDeep">Harga / Minggu (Rp)</label>
           <input id="pHargaMinggu" type="number" min="0" class="in mt-1" placeholder="Contoh: 80000">
         </div>
         <div>
-          <label class="text-sm font-medium">Harga / Bulan (Rp)</label>
+          <label class="text-sm font-semibold text-aquaDeep">Harga / Bulan (Rp)</label>
           <input id="pHargaBulan" type="number" min="0" class="in mt-1" placeholder="Contoh: 150000">
         </div>
-        <p class="sm:col-span-3 text-xs text-stone-500">Isi minimal satu pilihan harga (atau isi ketiganya agar pelanggan bisa memilih durasi langsung di website).</p>
+        <p class="sm:col-span-3 text-xs text-slate-600">Isi minimal satu pilihan harga (atau isi ketiganya agar pelanggan bisa memilih durasi langsung di website).</p>
       </div>
 
-      <div class="md:col-span-2"><label class="text-sm font-medium">Deskripsi Singkat</label><textarea id="pDesk" rows="2" class="in mt-1" placeholder="Keterangan kondisi, kelengkapan, usia bayi..."></textarea></div>
+      <div class="md:col-span-2"><label class="text-sm font-semibold">Deskripsi Singkat</label><textarea id="pDesk" rows="2" class="in mt-1" placeholder="Keterangan kondisi, kelengkapan, usia bayi/anak..."></textarea></div>
       
       <div>
-        <label class="text-sm font-medium">Pilih Foto dari Galeri / Kamera</label>
+        <label class="text-sm font-semibold">Pilih Foto dari Galeri / Kamera</label>
         <input id="pFile" type="file" accept="image/*" class="in mt-1" onchange="previewFile()">
       </div>
       <div>
-        <label class="text-sm font-medium">Atau Tempel Link URL Foto (Opsional)</label>
+        <label class="text-sm font-semibold">Atau Tempel Link URL Foto (Opsional)</label>
         <input id="pUrl" type="url" class="in mt-1" placeholder="https://..." oninput="previewUrl()">
       </div>
 
-      <div id="imgPreviewBox" class="hidden md:col-span-2 mt-1 flex items-center gap-3 bg-cream p-2.5 rounded-lg border border-cream2">
+      <div id="imgPreviewBox" class="hidden md:col-span-2 mt-1 flex items-center gap-3 bg-yellowSoft/60 p-2.5 rounded-lg border border-pinkLogo/50">
         <img id="imgPreview" class="w-16 h-16 object-cover rounded-lg border bg-white" alt="Preview">
-        <div class="text-xs text-stone-600">
-          <b class="block text-sage">Pratinjau Foto Siap Upload</b>
+        <div class="text-xs text-slate-700">
+          <b class="block text-pinkDeep">Pratinjau Foto Siap Upload</b>
           Foto akan otomatis dikompresi &amp; disimpan ke Google Drive Anda saat dipublikasikan.
         </div>
       </div>
 
       <div class="md:col-span-2 flex gap-2 mt-2">
         <button type="submit" id="btnSaveProd" class="btn">Upload &amp; Publikasikan</button>
-        <button type="button" class="border rounded-full px-4 py-1.5 text-sm" onclick="resetProd()">Reset Form</button>
+        <button type="button" class="border border-slate-300 rounded-full px-4 py-1.5 text-sm font-medium bg-white" onclick="resetProd()">Reset Form</button>
       </div>
     </form>
     <div id="prodList" class="mt-5 grid gap-3"></div>
@@ -173,15 +204,15 @@ const CONFIG = {
   <!-- Tab 2: Booking -->
   <div id="p2" class="hidden">
     <form class="card p-5 grid md:grid-cols-2 gap-3" onsubmit="saveBook(event)">
-      <h3 class="md:col-span-2 font-bold text-lg">Input Booking Manual (Deal WA)</h3>
-      <div><label class="text-sm font-medium">Nama Pelanggan</label><input id="bNama" class="in mt-1" required></div>
-      <div><label class="text-sm font-medium">Nomor WhatsApp</label><input id="bWa" class="in mt-1" placeholder="0812..." required></div>
-      <div><label class="text-sm font-medium">Barang Disewa</label><select id="bBarang" class="in mt-1"></select></div>
-      <div><label class="text-sm font-medium">Total Biaya (Rp)</label><input id="bTotal" type="number" class="in mt-1" required></div>
-      <div><label class="text-sm font-medium">Tanggal Mulai</label><input id="bMulai" type="date" class="in mt-1" required></div>
-      <div><label class="text-sm font-medium">Tanggal Selesai</label><input id="bSelesai" type="date" class="in mt-1" required></div>
-      <div><label class="text-sm font-medium">Status</label><select id="bStatus" class="in mt-1"><option>Dipesan</option><option>Sedang Disewa</option><option>Selesai</option></select></div>
-      <div><label class="text-sm font-medium">Catatan</label><input id="bCat" class="in mt-1" placeholder="Alamat antar di Kuningan / paket sewa..."></div>
+      <h3 class="md:col-span-2 font-bold text-lg text-aquaDeep">Input Booking Manual (Deal WA)</h3>
+      <div><label class="text-sm font-semibold">Nama Pelanggan</label><input id="bNama" class="in mt-1" required></div>
+      <div><label class="text-sm font-semibold">Nomor WhatsApp</label><input id="bWa" class="in mt-1" placeholder="0812..." required></div>
+      <div><label class="text-sm font-semibold">Barang Disewa</label><select id="bBarang" class="in mt-1"></select></div>
+      <div><label class="text-sm font-semibold">Total Biaya (Rp)</label><input id="bTotal" type="number" class="in mt-1" required></div>
+      <div><label class="text-sm font-semibold">Tanggal Mulai</label><input id="bMulai" type="date" class="in mt-1" required></div>
+      <div><label class="text-sm font-semibold">Tanggal Selesai</label><input id="bSelesai" type="date" class="in mt-1" required></div>
+      <div><label class="text-sm font-semibold">Status</label><select id="bStatus" class="in mt-1"><option>Dipesan</option><option>Sedang Disewa</option><option>Selesai</option></select></div>
+      <div><label class="text-sm font-semibold">Catatan</label><input id="bCat" class="in mt-1" placeholder="Alamat antar di Kuningan / paket sewa..."></div>
       <div class="md:col-span-2 mt-2"><button type="submit" id="btnSaveBook" class="btn">Simpan &amp; Kirim ke Spreadsheet</button></div>
     </form>
 
@@ -189,11 +220,11 @@ const CONFIG = {
       <div class="flex flex-wrap gap-2 mb-3">
         <input id="q" placeholder="Cari nama / barang..." class="in sm:w-60" oninput="renderBook()">
         <select id="fs" class="in sm:w-44" onchange="renderBook()"><option value="">Semua status</option><option>Dipesan</option><option>Sedang Disewa</option><option>Selesai</option></select>
-        <button type="button" class="btn" onclick="exportCSV()">Export CSV</button>
+        <button type="button" class="btn-aqua text-sm" onclick="exportCSV()">Export CSV</button>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
-          <thead><tr class="text-left border-b"><th class="p-2">Nama</th><th>WA</th><th>Barang</th><th>Periode</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+          <thead><tr class="text-left border-b border-aquaLogo text-aquaDeep"><th class="p-2">Nama</th><th>WA</th><th>Barang</th><th>Periode</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
           <tbody id="bookBody"></tbody>
         </table>
       </div>
@@ -355,11 +386,11 @@ function logout() {
 function tab(n) {
   $('p1').classList.toggle('hidden', n !== 1);
   $('p2').classList.toggle('hidden', n !== 2);
-  $('t1').style.background = n === 1 ? '' : '#8a7f70';
-  $('t2').style.background = n === 2 ? '' : '#8a7f70';
+  $('t1').style.background = n === 1 ? '' : '#94a3b8';
+  $('t2').style.background = n === 2 ? '' : '#94a3b8';
 }
 
-/* --- Katalog Pelanggan (Tanpa Kategori, Dengan Pencarian & Pilihan Durasi) --- */
+/* --- Katalog Pelanggan --- */
 function waLink(p, aktif) {
   const tgl = $('tglSewa').value || 'yang saya inginkan';
   const msg = `Halo Admin ZamBaby Rent Kuningan, saya ingin menyewa ${p.nama} paket ${aktif.label} (${rp(aktif.harga)}/${aktif.satuan}). Apakah stoknya tersedia untuk tanggal ${tgl}?`;
@@ -376,22 +407,22 @@ function renderCatalog() {
     const opsi = getOpsiHarga(p);
     const aktif = getActiveOpsi(p);
     const tombolDurasi = opsi.length > 1
-      ? `<div class="flex gap-1.5 mt-3">${opsi.map(o => `<button type="button" onclick="pilihDurasi('${p.id}','${o.key}')" class="flex-1 py-1 px-2 rounded-lg text-xs font-semibold border transition ${o.key === aktif.key ? 'bg-sage text-white border-sage' : 'bg-cream text-stone-700 border-cream2 hover:bg-butter/50'}">${o.label}</button>`).join('')}</div>`
+      ? `<div class="flex gap-1.5 mt-3">${opsi.map(o => `<button type="button" onclick="pilihDurasi('${p.id}','${o.key}')" class="flex-1 py-1 px-2 rounded-lg text-xs font-bold border transition ${o.key === aktif.key ? 'bg-aquaDeep text-white border-aquaDeep' : 'bg-aquaSoft text-aquaDeep border-aquaLogo hover:bg-yellowSoft'}">${o.label}</button>`).join('')}</div>`
       : '';
 
     return `<div class="card overflow-hidden flex flex-col">
-      <div class="h-44 bg-butter/40 flex items-center justify-center text-6xl overflow-hidden">${p.gambar ? `<img src="${p.gambar}" class="h-full w-full object-cover" alt="${p.nama}" onerror="this.style.display='none'">` : '🍼'}</div>
+      <div class="h-44 bg-gradient-to-b from-aquaLogo/40 to-yellowSoft/40 flex items-center justify-center text-6xl overflow-hidden">${p.gambar ? `<img src="${p.gambar}" class="h-full w-full object-cover" alt="${p.nama}" onerror="this.style.display='none'">` : '🍼'}</div>
       <div class="p-4 flex flex-col flex-1">
-        <b class="text-base">${p.nama}</b>
-        <p class="text-sm text-stone-600 flex-1 mt-1">${p.deskripsi || ''}</p>
+        <b class="text-base text-slate-800">${p.nama}</b>
+        <p class="text-sm text-slate-600 flex-1 mt-1">${p.deskripsi || ''}</p>
         ${tombolDurasi}
-        <div class="text-sage font-bold text-lg mt-2.5">${rp(aktif.harga)} <span class="text-xs font-normal text-stone-600">/ ${aktif.satuan}</span></div>
+        <div class="text-aquaDeep font-extrabold text-lg mt-2.5">${rp(aktif.harga)} <span class="text-xs font-normal text-slate-500">/ ${aktif.satuan}</span></div>
         <a href="${waLink(p, aktif)}" target="_blank" class="btn text-center mt-3">Sewa via WhatsApp</a>
       </div>
     </div>`;
-  }).join('') || '<p class="col-span-full text-stone-500">Produk tidak ditemukan.</p>';
+  }).join('') || '<p class="col-span-full text-slate-500">Produk tidak ditemukan.</p>';
 
-  $('heroWa').href = `https://wa.me/${CONFIG.WA_ADMIN}?text=${encodeURIComponent('Halo Admin ZamBaby Rent Kuningan, saya ingin bertanya tentang penyewaan alat bayi.')}`;
+  $('heroWa').href = `https://wa.me/${CONFIG.WA_ADMIN}?text=${encodeURIComponent('Halo Admin ZamBaby Rent Kuningan, saya ingin bertanya tentang penyewaan alat bayi & anak.')}`;
 }
 
 /* --- Kompresi & Pratinjau Foto Galeri --- */
@@ -533,10 +564,10 @@ function renderProdList() {
     ].filter(Boolean).join(' · ');
 
     return `<div class="card p-3 flex items-center gap-3">
-      <div class="w-14 h-14 rounded-lg bg-butter/40 flex items-center justify-center text-2xl overflow-hidden">${p.gambar ? `<img src="${p.gambar}" class="w-full h-full object-cover">` : '🍼'}</div>
-      <div class="flex-1"><b>${p.nama}</b><div class="text-xs text-stone-600">${infoHarga}</div></div>
-      <button type="button" class="text-sage font-semibold text-sm px-2" onclick="editProd('${p.id}')">Edit</button>
-      <button type="button" class="text-red-600 font-semibold text-sm px-2" onclick="delProd('${p.id}')">Hapus</button>
+      <div class="w-14 h-14 rounded-xl bg-aquaSoft flex items-center justify-center text-2xl overflow-hidden">${p.gambar ? `<img src="${p.gambar}" class="w-full h-full object-cover">` : '🍼'}</div>
+      <div class="flex-1"><b class="text-slate-800">${p.nama}</b><div class="text-xs text-slate-600">${infoHarga}</div></div>
+      <button type="button" class="text-aquaDeep font-semibold text-sm px-2" onclick="editProd('${p.id}')">Edit</button>
+      <button type="button" class="text-pinkDeep font-semibold text-sm px-2" onclick="delProd('${p.id}')">Hapus</button>
     </div>`;
   }).join('');
 }
@@ -580,16 +611,16 @@ function renderBook() {
   const q = $('q').value.toLowerCase(), fs = $('fs').value;
   $('bookBody').innerHTML = booking.filter(b => (!fs || b.status === fs) && (String(b.nama) + String(b.barang)).toLowerCase().includes(q)).map(b => {
     const cleanWa = String(b.wa || '').replace(/^'/, '');
-    return `<tr class="border-b">
+    return `<tr class="border-b border-aquaSoft">
       <td class="p-2 font-medium">${b.nama}</td>
       <td>${cleanWa}</td>
       <td>${b.barang}</td>
       <td class="text-xs">${b.mulai} s/d ${b.selesai}</td>
       <td>${rp(b.total)}</td>
-      <td><select class="border rounded p-1 text-xs" onchange="setStatus('${b.id}',this.value)">${['Dipesan', 'Sedang Disewa', 'Selesai'].map(s => `<option ${s === b.status ? 'selected' : ''}>${s}</option>`).join('')}</select></td>
-      <td><button type="button" class="text-red-600 text-xs font-semibold" onclick="delBook('${b.id}')">Hapus</button></td>
+      <td><select class="border border-aquaLogo rounded p-1 text-xs" onchange="setStatus('${b.id}',this.value)">${['Dipesan', 'Sedang Disewa', 'Selesai'].map(s => `<option ${s === b.status ? 'selected' : ''}>${s}</option>`).join('')}</select></td>
+      <td><button type="button" class="text-pinkDeep text-xs font-semibold" onclick="delBook('${b.id}')">Hapus</button></td>
     </tr>`;
-  }).join('') || '<tr><td colspan="7" class="p-4 text-center text-stone-500">Belum ada data booking.</td></tr>';
+  }).join('') || '<tr><td colspan="7" class="p-4 text-center text-slate-500">Belum ada data booking.</td></tr>';
 }
 
 async function setStatus(id, s) {
